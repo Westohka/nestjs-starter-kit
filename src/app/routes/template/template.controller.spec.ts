@@ -9,12 +9,8 @@ import BrokerService from '../../broker/broker.service';
 import DatabaseModule from '../../database/database.module';
 import UserRepository from '../../database/repositories/UserRepository';
 
-import Utils from '../../utils/Utils';
-
 import TemplateController from './template.controller';
 import TemplateService from './template.service';
-
-import { UserCreateDto } from './template.dto';
 
 import ConsumerTemplateService from '../../queues/consumers/template/template.service';
 import TemplateConsumer from '../../queues/consumers/template/template.consumer';
@@ -27,7 +23,6 @@ describe('TemplateController', () => {
   let controller: TemplateController;
 
   let brokerService: BrokerService;
-  let userRepository: UserRepository;
 
   let consumer: ConsumerTemplateService;
 
@@ -68,7 +63,6 @@ describe('TemplateController', () => {
 
     controller = app.get<TemplateController>(TemplateController);
     brokerService = app.get<BrokerService>(BrokerService);
-    userRepository = app.get<UserRepository>(UserRepository);
     consumer = app.get<ConsumerTemplateService>(ConsumerTemplateService);
 
     jest
@@ -95,38 +89,6 @@ describe('TemplateController', () => {
 
     it('should return "Hello World!" from broker', async () => {
       expect(await controller.getHelloFromBroker()).toBe('Hello World!');
-    });
-
-    it('should create user', async () => {
-      const payload: UserCreateDto = {
-        firstname: 'firstname',
-        lastname: 'lastname',
-        email: `${Utils.getUUID()}@email.com`,
-        password: 'password',
-      };
-
-      const user = await controller.userCreate(payload);
-
-      expect(user.firstname).toBe(payload.firstname);
-      expect(user.lastname).toBe(payload.lastname);
-      expect(user.email).toBe(payload.email);
-    });
-
-    it('should get profile', async () => {
-      const user = userRepository.create({
-        email: `${Utils.getUUID()}@email.com`,
-        password: 'password',
-        firstname: 'firstname',
-        lastname: 'lastname',
-      });
-
-      await userRepository.save(user);
-
-      const response = await controller.profile({
-        user,
-      });
-
-      expect(response.id).toBe(user.id);
     });
 
     it('should add job', async () => {
