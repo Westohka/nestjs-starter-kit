@@ -1,3 +1,5 @@
+import { HttpException, HttpStatus } from '@nestjs/common';
+
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -10,6 +12,8 @@ import UserRepository from '../../database/repositories/user.repository';
 
 import Utils from '../../utils/utils';
 
+import { AuthServiceErrors } from './auth.service';
+
 import AuthController from './auth.controller';
 import AuthService from './auth.service';
 
@@ -17,43 +21,62 @@ import { LoginDto } from './auth.dto';
 
 import { JwtPayload } from '../../auth/strategies/jwt-access.strategy';
 
-describe('AuthModule', () => {
-  let controller: AuthController;
-  let database: DatabaseModule;
+interface SignInOptions {
+  isBadUser?: boolean;
+}
 
-  let userRepository: UserRepository;
-  let jwtService: JwtService;
+class AuthModuleTest {
+  private _app: TestingModule;
+  private _controller: AuthController;
 
-  beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
-      imports: [
-        DatabaseModule,
-        JwtModule.register({
-          secret: config.auth.jwt.access.secret,
-          signOptions: {
-            expiresIn: config.auth.jwt.access.lifetime,
-          },
-        }),
-        TypeOrmModule.forFeature([UserRepository]),
-      ],
-      controllers: [AuthController],
-      providers: [AuthService],
-    }).compile();
+  private _repository: UserRepository;
+  private _jwtService: JwtService;
 
-    controller = app.get<AuthController>(AuthController);
-    database = app.get<DatabaseModule>(DatabaseModule);
-    userRepository = app.get<UserRepository>(UserRepository);
-    jwtService = app.get<JwtService>(JwtService);
-  });
+  run(): void {
+    beforeEach(async () => {
+      this._app = await Test.createTestingModule({
+        imports: [
+          DatabaseModule,
+          JwtModule.register({
+            secret: config.auth.jwt.access.secret,
+            signOptions: {
+              expiresIn: config.auth.jwt.access.lifetime,
+            },
+          }),
+          TypeOrmModule.forFeature([UserRepository]),
+        ],
+        controllers: [AuthController],
+        providers: [AuthService],
+      }).compile();
 
-  afterEach(async () => {
-    const connection = database.connection();
-    await connection.close();
-  });
+      this._controller = this._app.get<AuthController>(AuthController);
+      this._repository = this._app.get<UserRepository>(UserRepository);
+      this._jwtService = this._app.get<JwtService>(JwtService);
+    });
 
-  describe('Sign in', () => {
-    it('Should login user', async () => {
-      const user = userRepository.create({
+    afterEach(async () => {
+      this._app.close();
+    });
+
+    describe('Auth module', () => {
+      describe('Sign in', () => {
+        this.signIn({});
+        this.signIn({
+          isBadUser: true,
+        });
+      });
+    });
+  }
+
+  signIn(options: SignInOptions): void {
+    let info = 'Should login user';
+
+    if (options.isBadUser) {
+      info = 'Should throw "Wrong password"';
+    }
+
+    it(info, async () => {
+      const user = this._repository.create({
         email: `${Utils.getUUID()}@email.com`,
         password: 'password',
         firstname: 'firstname',
@@ -62,20 +85,40 @@ describe('AuthModule', () => {
 
       const password = user.password;
 
-      await userRepository.save(user);
+      await this._repository.save(user);
 
       const payload: LoginDto = {
         email: user.email,
-        password,
+        password: options.isBadUser ? Utils.getUUID() : password,
       };
 
-      const response = await controller.login(payload);
+      try {
+        const response = await this._controller.login(payload);
 
-      expect(typeof response.accessToken).toBe('string');
-      expect(typeof response.refreshToken).toBe('string');
+        if (options.isBadUser) {
+          throw new Error('Bad user case error');
+        }
 
-      const jwtPayload = <JwtPayload>jwtService.decode(response.accessToken);
-      expect(jwtPayload.id).toBe(user.id);
+        expect(typeof response.accessToken).toBe('string');
+        expect(typeof response.refreshToken).toBe('string');
+
+        const jwtPayload = <JwtPayload>(
+          this._jwtService.decode(response.accessToken)
+        );
+        expect(jwtPayload.id).toBe(user.id);
+      } catch (err) {
+        if (!(err instanceof HttpException)) {
+          throw err;
+        }
+
+        if (options.isBadUser) {
+          expect(err.getResponse()).toBe(AuthServiceErrors.WRONG_PASSWORD);
+          expect(err.getStatus()).toBe(HttpStatus.FORBIDDEN);
+        }
+      }
     });
-  });
-});
+  }
+}
+
+const test = new AuthModuleTest();
+test.run();
