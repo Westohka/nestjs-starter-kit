@@ -20,11 +20,6 @@ export default class BrokerService implements OnApplicationBootstrap {
     return firstValueFrom(data);
   }
 
-  async getHelloAsync() {
-    const message = await this._client.send({ cmd: 'greeting-async' }, 'World');
-    return message;
-  }
-
   async publishEvent() {
     this._client.emit('book-created', {
       bookName: 'The Way Of Kings',

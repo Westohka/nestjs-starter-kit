@@ -21,11 +21,6 @@ export default class BrokerController {
     return `Hello ${name}`;
   }
 
-  @MessagePattern({ cmd: 'greeting-async' })
-  async getGreetingMessageAysnc(name: string): Promise<string> {
-    return `Hello ${name} Async`;
-  }
-
   @EventPattern('book-created')
   async handleBookCreatedEvent(
     @Payload() data: Record<string, unknown>,
