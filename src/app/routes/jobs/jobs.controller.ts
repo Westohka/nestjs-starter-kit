@@ -19,4 +19,12 @@ export default class JobsController {
   async queueTemplate(): Promise<void> {
     await this._service.queueTemplate();
   }
+
+  @Post('separated_queue')
+  @ApiOperation({
+    description: 'Add separated queue template',
+  })
+  async queueSeparated(): Promise<void> {
+    await this._service.queueSeparated();
+  }
 }

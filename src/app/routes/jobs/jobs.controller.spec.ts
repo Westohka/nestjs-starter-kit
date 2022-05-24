@@ -15,9 +15,11 @@ describe('JobsController', () => {
   let app: TestingModule;
   let controller: JobsController;
 
-  let jobService: TemplateJobService;
+  let templateJobService: TemplateJobService;
+  let separateJobService: SeparateJobService;
 
   let queueTemplate: jest.SpyInstance;
+  let queueSeparated: jest.SpyInstance;
 
   beforeEach(async () => {
     app = await Test.createTestingModule({
@@ -36,24 +38,32 @@ describe('JobsController', () => {
         BullModule.registerQueue({
           name: TemplateJobConsumer.name,
         }),
-        // BullModule.registerQueue({
-        //   name: 'SeparateProcessor',
-        // }),
+        BullModule.registerQueue({
+          name: 'SeparateProcessor',
+        }),
       ],
       controllers: [JobsController],
       providers: [
         TemplateJobConsumer,
         TemplateJobService,
-        // SeparateTemplateService,
+        SeparateJobService,
         JobsService,
       ],
     }).compile();
 
     controller = app.get<JobsController>(JobsController);
-    jobService = app.get<TemplateJobService>(TemplateJobService);
+
+    templateJobService = app.get<TemplateJobService>(TemplateJobService);
+    separateJobService = app.get<SeparateJobService>(SeparateJobService);
 
     queueTemplate = jest
-      .spyOn(jobService, 'queueTemplate')
+      .spyOn(templateJobService, 'queueTemplate')
+      .mockImplementation(async (): Promise<void> => {
+        return;
+      });
+
+    queueSeparated = jest
+      .spyOn(separateJobService, 'separateProcessorTemplate')
       .mockImplementation(async (): Promise<void> => {
         return;
       });
@@ -67,6 +77,11 @@ describe('JobsController', () => {
     it('should add job', async () => {
       await controller.queueTemplate();
       expect(queueTemplate).toBeCalledTimes(1);
+    });
+
+    it('should add separeted job', async () => {
+      await controller.queueSeparated();
+      expect(queueSeparated).toBeCalledTimes(1);
     });
   });
 });
