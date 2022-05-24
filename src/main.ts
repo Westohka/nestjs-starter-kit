@@ -7,6 +7,7 @@ import AppModule from './app/app.module';
 
 import AppExceptionsFilter from './app/utils/app.exceptions.filter';
 import AppValidationPipe from './app/utils/app.validation.pipe';
+import ResponseInterceptor from './app/utils/app.response.interceptor';
 
 import config from './app/config/config';
 import rabbit from './app/config/rabbit.config';
@@ -24,6 +25,9 @@ async function bootstrap() {
 
   const validatorPipe = new AppValidationPipe();
   app.useGlobalPipes(validatorPipe);
+
+  const responseInterceptor = new ResponseInterceptor();
+  app.useGlobalInterceptors(responseInterceptor);
 
   app.connectMicroservice({
     ...rabbit,

@@ -29,6 +29,7 @@ export default class AppExceptionsFilter implements ExceptionFilter {
       exception instanceof HttpException ? exception.getResponse() : null;
 
     const responseBody = {
+      ok: false,
       statusCode: httpStatus,
       timestamp: new Date().toISOString(),
       message: httpResponse,

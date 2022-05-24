@@ -85,3 +85,44 @@ npm tests
 npm start
 ```
 7. Checkout swagger (Default: http://localhost:3000/api/api-info)
+
+### Server responses
+
+Success:
+```
+{
+  "ok": true,
+  "result": {result}
+}
+```
+
+```
+{
+  "ok": true,
+  "result": {
+    "id": "9eccf36c-976b-4876-830d-72976cb449a1",
+    "firstname": "firstname",
+    "lastname": "lastname",
+    "email": "d29f9cbd-1da1-4a88-8f1c-5d38016cfed0@email.com"
+  }
+}
+```
+
+Error:
+```
+{
+  "ok": false,
+  "statusCode": {Status code},
+  "timestamp": {Timestamp},
+  "message": {Error message}
+}
+```
+
+```
+{
+  "ok": false,
+  "statusCode": 403,
+  "timestamp": "2022-05-24T11:36:58.434Z",
+  "message": "Wrong password"
+}
+```
