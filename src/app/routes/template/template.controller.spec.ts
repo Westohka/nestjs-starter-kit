@@ -5,7 +5,7 @@ import BrokerModule from '../../broker/broker.module';
 import BrokerService from '../../broker/broker.service';
 
 import DatabaseModule from '../../database/database.module';
-import UserRepository from '../../database/repositories/UserRepository';
+import UserRepository from '../../database/repositories/user.repository';
 
 import TemplateController from './template.controller';
 import TemplateService from './template.service';

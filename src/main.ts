@@ -3,14 +3,14 @@ import { SwaggerModule } from '@nestjs/swagger';
 
 import * as helmet from 'helmet';
 
-import { AppModule } from './app/app.module';
+import AppModule from './app/app.module';
 
-import AppExceptionsFilter from './app/utils/AppExceptionsFilter';
-import AppValidationPipe from './app/utils/AppValidationPipe';
+import AppExceptionsFilter from './app/utils/app.exceptions.filter';
+import AppValidationPipe from './app/utils/app.validation.pipe';
 
 import config from './app/config/config';
-import rabbit from './app/config/rabbit';
-import swagger from './app/config/swagger';
+import rabbit from './app/config/rabbit.config';
+import swagger from './app/config/swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

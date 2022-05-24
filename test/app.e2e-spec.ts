@@ -3,9 +3,9 @@ import { INestApplication } from '@nestjs/common';
 
 import * as request from 'supertest';
 
-import { AppModule } from '../src/app/app.module';
+import AppModule from '../src/app/app.module';
 
-jest.mock('../src/app/queues/consumers/separate/separate.module');
+jest.mock('../src/app/queues/separate_job/separate.module');
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;

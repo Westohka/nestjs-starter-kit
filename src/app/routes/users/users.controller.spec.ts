@@ -3,9 +3,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import DatabaseModule from '../../database/database.module';
-import UserRepository from '../../database/repositories/UserRepository';
+import UserRepository from '../../database/repositories/user.repository';
 
-import Utils from '../../utils/Utils';
+import Utils from '../../utils/utils';
 
 import { UserCreateDto } from './users.dto';
 

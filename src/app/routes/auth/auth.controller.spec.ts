@@ -6,9 +6,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import config from '../../config/config';
 
 import DatabaseModule from '../../database/database.module';
-import UserRepository from '../../database/repositories/UserRepository';
+import UserRepository from '../../database/repositories/user.repository';
 
-import Utils from '../../utils/Utils';
+import Utils from '../../utils/utils';
 
 import AuthController from './auth.controller';
 import AuthService from './auth.service';

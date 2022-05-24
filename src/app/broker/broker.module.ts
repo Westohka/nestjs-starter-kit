@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
 
-import rabbit from '../config/rabbit';
+import rabbit from '../config/rabbit.config';
 
 import BrokerController from './broker.controller';
 import BrokerService from './broker.service';

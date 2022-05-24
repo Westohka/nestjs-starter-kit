@@ -5,8 +5,8 @@ import { Connection } from 'typeorm';
 
 import config from '../../config/config';
 
-import UserRepository from '../../database/repositories/UserRepository';
-import User from '../../database/entity/User';
+import UserRepository from '../../database/repositories/user.repository';
+import User from '../../database/entity/user.entity';
 
 import { JwtPayload } from '../../auth/strategies/jwt-access.strategy';
 

@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Connection } from 'typeorm';
 
-import User from './entity/User';
+import User from './entity/user.entity';
 
 import config from '../config/config';
 

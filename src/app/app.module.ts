@@ -8,4 +8,4 @@ import RoutesModule from './routes/routes.module';
 @Module({
   imports: [DatabaseModule, BrokerModule, QueuesModule, RoutesModule],
 })
-export class AppModule {}
+export default class AppModule {}
