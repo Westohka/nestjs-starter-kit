@@ -32,7 +32,7 @@ export default class BrokerController {
     @Payload() data: Record<string, unknown>,
     @Ctx() context: RmqContext,
   ) {
-    console.log('handleBookCreatedEvent', data);
+    console.log('handleEvents', data);
     this.close(context);
   }
 }

@@ -7,6 +7,8 @@ import JobsService from './jobs.service';
 import TemplateJobService from '../../../queues/template_job/template.service';
 import TemplateJobConsumer from '../../../queues/template_job/template.consumer';
 
+import { CLIENT_NAME } from '../../../queues/separate_job/separate.constants';
+
 import SeparateJobService from '../../../queues/separate_job/separate.service';
 
 import config from '../../../config/config';
@@ -39,7 +41,7 @@ describe('JobsController', () => {
           name: TemplateJobConsumer.name,
         }),
         BullModule.registerQueue({
-          name: 'SeparateProcessor',
+          name: CLIENT_NAME,
         }),
       ],
       controllers: [JobsController],

@@ -3,11 +3,13 @@ import { InjectQueue } from '@nestjs/bull';
 
 import { Queue } from 'bull';
 
+import { CLIENT_NAME } from './separate.constants';
+
 @Injectable()
 export default class SeparateJobService {
   private readonly _queue: Queue;
 
-  constructor(@InjectQueue('SeparateProcessor') queue: Queue) {
+  constructor(@InjectQueue(CLIENT_NAME) queue: Queue) {
     this._queue = queue;
   }
 

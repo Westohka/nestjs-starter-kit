@@ -9,7 +9,7 @@ import { Logger } from '@nestjs/common';
 
 import { Job } from 'bull';
 
-@Processor('TemplateJobConsumer')
+@Processor(TemplateJobConsumer.name)
 export default class TemplateJobConsumer {
   private readonly logger = new Logger(`JOB_${TemplateJobConsumer.name}`);
 
@@ -29,7 +29,7 @@ export default class TemplateJobConsumer {
   }
 
   @Process({
-    name: 'template',
+    name: TemplateJobConsumer.prototype.template.name,
     concurrency: 10,
   })
   async template(job: Job) {
