@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import TemplateService from './template.service';
@@ -27,13 +27,5 @@ export default class TemplateController {
   async getHelloFromBroker(): Promise<string> {
     const data = await this._service.getHelloFromBroker();
     return data;
-  }
-
-  @Post('queue')
-  @ApiOperation({
-    description: 'Add queue template',
-  })
-  async queueTemplate(): Promise<void> {
-    await this._service.queueTemplate();
   }
 }
