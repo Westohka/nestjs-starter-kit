@@ -89,6 +89,7 @@
     },
     "collectCoverageFrom": [
       "**/*controller.ts",
+      "**/*service.ts",
       "**/*processor.ts"
     ],
     "coverageDirectory": "../coverage",

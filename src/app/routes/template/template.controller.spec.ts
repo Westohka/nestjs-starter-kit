@@ -1,5 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { BullModule } from '@nestjs/bull';
 
 import BrokerModule from '../../broker/broker.module';
 import BrokerService from '../../broker/broker.service';
@@ -15,31 +17,56 @@ import TemplateService from './template.service';
 import { UserCreateDto } from './template.dto';
 
 import ConsumerTemplateService from '../../queues/consumers/template/template.service';
-import QueuesModule from '../../queues/queues.module';
+import TemplateConsumer from '../../queues/consumers/template/template.consumer';
+import SeparateTemplateService from '../../queues/consumers/separate/separate.service';
+
+import config from '../../config/config';
 
 describe('TemplateController', () => {
+  let app: TestingModule;
   let controller: TemplateController;
-  let database: DatabaseModule;
+
   let brokerService: BrokerService;
   let userRepository: UserRepository;
+
   let consumer: ConsumerTemplateService;
 
   const jobs = {};
 
   beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
+    app = await Test.createTestingModule({
       imports: [
         DatabaseModule,
-        QueuesModule,
         BrokerModule,
         TypeOrmModule.forFeature([UserRepository]),
+        BullModule.forRoot({
+          redis: config.redis,
+          defaultJobOptions: {
+            removeOnComplete: true,
+            attempts: 3,
+          },
+          limiter: {
+            max: 100,
+            duration: 10000,
+          },
+        }),
+        BullModule.registerQueue({
+          name: TemplateConsumer.name,
+        }),
+        BullModule.registerQueue({
+          name: 'SeparateProcessor',
+        }),
       ],
       controllers: [TemplateController],
-      providers: [TemplateService],
+      providers: [
+        TemplateConsumer,
+        ConsumerTemplateService,
+        SeparateTemplateService,
+        TemplateService,
+      ],
     }).compile();
 
     controller = app.get<TemplateController>(TemplateController);
-    database = app.get<DatabaseModule>(DatabaseModule);
     brokerService = app.get<BrokerService>(BrokerService);
     userRepository = app.get<UserRepository>(UserRepository);
     consumer = app.get<ConsumerTemplateService>(ConsumerTemplateService);
@@ -58,8 +85,7 @@ describe('TemplateController', () => {
   });
 
   afterEach(async () => {
-    const connection = database.connection();
-    await connection.close();
+    await app.close();
   });
 
   describe('root', () => {
