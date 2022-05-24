@@ -12,11 +12,11 @@ JWT_REFRESH_SECRET=SOv2cT29VqxrV1Q9J8M6CALGzTYflAR2wXJaiSQ1
 
 DB_HOST=localhost
 DB_PORT=5432
-DB_USERNAME=builder_service
-DB_PASSWORD=builder_service
-DB_DATABASE=builder_service
+DB_USERNAME=username
+DB_PASSWORD=password
+DB_DATABASE=database
 
-BROKER_URL=amqp://app_market:app_market@127.0.0.1:5672/app_market
-BROKER_QUEUE=builder_service
+BROKER_URL=amqp://user:password@127.0.0.1:5672/vhost
+BROKER_QUEUE=queue
 
 REDIS_HOST=localhost
