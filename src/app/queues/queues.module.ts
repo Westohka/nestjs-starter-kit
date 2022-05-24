@@ -3,8 +3,8 @@ import { BullModule } from '@nestjs/bull';
 
 import config from '../config/config';
 
-import ConsumerTemplateModule from './consumers/template/template.module';
-import SeparateTemplateModule from './consumers/separate/separate.module';
+import TemplateJobModule from './template_job/template.module';
+import SeparateJobModule from './separate_job/separate.module';
 
 @Global()
 @Module({
@@ -20,8 +20,8 @@ import SeparateTemplateModule from './consumers/separate/separate.module';
         duration: 10000,
       },
     }),
-    ConsumerTemplateModule,
-    SeparateTemplateModule,
+    TemplateJobModule,
+    SeparateJobModule,
   ],
 })
 export default class QueuesModule {}

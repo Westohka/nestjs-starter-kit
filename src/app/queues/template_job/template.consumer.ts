@@ -9,9 +9,9 @@ import { Logger } from '@nestjs/common';
 
 import { Job } from 'bull';
 
-@Processor('TemplateConsumer')
-export default class TemplateConsumer {
-  private readonly logger = new Logger(`JOB_${TemplateConsumer.name}`);
+@Processor('TemplateJobConsumer')
+export default class TemplateJobConsumer {
+  private readonly logger = new Logger(`JOB_${TemplateJobConsumer.name}`);
 
   @OnQueueActive()
   onActive() {

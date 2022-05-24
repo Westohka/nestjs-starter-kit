@@ -4,10 +4,10 @@ import { BullModule } from '@nestjs/bull';
 import JobsController from './jobs.controller';
 import JobsService from './jobs.service';
 
-import TemplateJobService from '../../queues/consumers/template/template.service';
-import TemplateJobConsumer from '../../queues/consumers/template/template.consumer';
+import TemplateJobService from '../../queues/template_job/template.service';
+import TemplateJobConsumer from '../../queues/template_job/template.consumer';
 
-import SeparateJobService from '../../queues/consumers/separate/separate.service';
+import SeparateJobService from '../../queues/separate_job/separate.service';
 
 import config from '../../config/config';
 

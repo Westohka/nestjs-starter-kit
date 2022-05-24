@@ -6,7 +6,7 @@ import { Queue } from 'bull';
 import TemplateConsumer from './template.consumer';
 
 @Injectable()
-export default class ConsumerTemplateService {
+export default class TemplateJobService {
   private readonly _queue: Queue;
 
   constructor(@InjectQueue(TemplateConsumer.name) queue: Queue) {

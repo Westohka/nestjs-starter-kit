@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import TemplateJobService from '../../queues/consumers/template/template.service';
+import TemplateJobService from '../../queues/template_job/template.service';
 
 @Injectable()
 export default class JobsService {
