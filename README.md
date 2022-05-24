@@ -60,3 +60,28 @@ src                             ─ Source code
 {name}.{resource_type}.ts
 {name}.{resource_type}.spec.ts - For unit tests.
 ```
+
+### Service start:
+
+1. Create .env file from env_template
+2. Install node-modules
+```
+npm install
+```
+3. Create ormconfig.json file from ormconfig.json_template or use
+```
+npx typeorm init
+```
+4. Run migrations.
+```
+npm run-script typeorm:migration:run
+```
+5. Start tests
+```
+npm tests
+```
+6. Start server
+```
+npm start
+```
+7. Checkout swagger (Default: http://localhost:3000/api/api-info)
