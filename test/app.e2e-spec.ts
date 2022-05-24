@@ -6,7 +6,7 @@ import * as request from 'supertest';
 import AppModule from '../src/app/app.module';
 
 jest.mock('../src/app/queues/separate_job/separate.module');
-jest.mock('../src/app/routes/jobs/jobs.module');
+jest.mock('../src/app/routes/v1/jobs/jobs.module');
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -24,9 +24,9 @@ describe('AppController (e2e)', () => {
     await app.close();
   });
 
-  it('/ (GET)', () => {
+  it('/v1/template (GET)', () => {
     return request(app.getHttpServer())
-      .get('/template')
+      .get('/v1/template')
       .expect(200)
       .expect('Hello World!');
   });

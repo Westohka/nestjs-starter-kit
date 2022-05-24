@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Connection } from 'typeorm';
 
-import BrokerService from '../../broker/broker.service';
+import BrokerService from '../../../broker/broker.service';
 
 @Injectable()
 export default class TemplateService {

@@ -3,8 +3,8 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import TemplateService from './template.service';
 
-@ApiTags('template')
-@Controller('template')
+@ApiTags('v1', 'template')
+@Controller('v1/template')
 export default class TemplateController {
   private readonly _service: TemplateService;
 

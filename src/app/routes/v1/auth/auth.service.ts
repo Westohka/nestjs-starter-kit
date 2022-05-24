@@ -3,12 +3,12 @@ import { JwtService } from '@nestjs/jwt';
 
 import { Connection } from 'typeorm';
 
-import config from '../../config/config';
+import config from '../../../config/config';
 
-import UserRepository from '../../database/repositories/user.repository';
-import User from '../../database/entity/user.entity';
+import UserRepository from '../../../database/repositories/user.repository';
+import User from '../../../database/entity/user.entity';
 
-import { JwtPayload } from '../../auth/strategies/jwt-access.strategy';
+import { JwtPayload } from '../../../auth/strategies/jwt-access.strategy';
 
 import { LoginDto } from './auth.dto';
 

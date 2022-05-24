@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { Connection } from 'typeorm';
-
-import UserRepository from '../../database/repositories/user.repository';
-import User from '../../database/entity/user.entity';
+import UserRepository from '../../../database/repositories/user.repository';
+import User from '../../../database/entity/user.entity';
 
 import { UserCreateDto } from './users.dto';
 

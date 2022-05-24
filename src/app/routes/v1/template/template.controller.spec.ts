@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import BrokerModule from '../../broker/broker.module';
-import BrokerService from '../../broker/broker.service';
+import BrokerModule from '../../../broker/broker.module';
+import BrokerService from '../../../broker/broker.service';
 
-import DatabaseModule from '../../database/database.module';
-import UserRepository from '../../database/repositories/user.repository';
+import DatabaseModule from '../../../database/database.module';
+import UserRepository from '../../../database/repositories/user.repository';
 
 import TemplateController from './template.controller';
 import TemplateService from './template.service';

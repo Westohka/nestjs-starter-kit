@@ -5,12 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Test, TestingModule } from '@nestjs/testing';
 
-import config from '../../config/config';
+import config from '../../../config/config';
 
-import DatabaseModule from '../../database/database.module';
-import UserRepository from '../../database/repositories/user.repository';
+import DatabaseModule from '../../../database/database.module';
+import UserRepository from '../../../database/repositories/user.repository';
 
-import Utils from '../../utils/utils';
+import Utils from '../../../utils/utils';
 
 import { AuthServiceErrors } from './auth.service';
 
@@ -19,7 +19,7 @@ import AuthService from './auth.service';
 
 import { LoginDto } from './auth.dto';
 
-import { JwtPayload } from '../../auth/strategies/jwt-access.strategy';
+import { JwtPayload } from '../../../auth/strategies/jwt-access.strategy';
 
 interface SignInOptions {
   isBadUser?: boolean;

@@ -9,15 +9,15 @@ import {
 
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { JwtAccessGuard } from '../../auth/guards/jwt-access.guard';
+import { JwtAccessGuard } from '../../../auth/guards/jwt-access.guard';
 
-import User from '../../database/entity/user.entity';
+import User from '../../../database/entity/user.entity';
 
 import { UserCreateDto } from './users.dto';
 import UsersService from './users.service';
 
-@ApiTags('users')
-@Controller('users')
+@ApiTags('v1', 'users')
+@Controller('v1/users')
 export default class UsersController {
   private readonly _service: UsersService;
 

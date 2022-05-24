@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import TemplateJobService from '../../queues/template_job/template.service';
-import SeparateJobService from '../../queues/separate_job/separate.service';
+import TemplateJobService from '../../../queues/template_job/template.service';
+import SeparateJobService from '../../../queues/separate_job/separate.service';
 
 @Injectable()
 export default class JobsService {

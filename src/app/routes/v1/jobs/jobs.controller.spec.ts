@@ -4,12 +4,12 @@ import { BullModule } from '@nestjs/bull';
 import JobsController from './jobs.controller';
 import JobsService from './jobs.service';
 
-import TemplateJobService from '../../queues/template_job/template.service';
-import TemplateJobConsumer from '../../queues/template_job/template.consumer';
+import TemplateJobService from '../../../queues/template_job/template.service';
+import TemplateJobConsumer from '../../../queues/template_job/template.consumer';
 
-import SeparateJobService from '../../queues/separate_job/separate.service';
+import SeparateJobService from '../../../queues/separate_job/separate.service';
 
-import config from '../../config/config';
+import config from '../../../config/config';
 
 describe('JobsController', () => {
   let app: TestingModule;

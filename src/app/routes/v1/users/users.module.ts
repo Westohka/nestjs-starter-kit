@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import JwtAccessStrategy from '../../auth/strategies/jwt-access.strategy';
+import JwtAccessStrategy from '../../../auth/strategies/jwt-access.strategy';
 
-import UserRepository from '../../database/repositories/user.repository';
+import UserRepository from '../../../database/repositories/user.repository';
 
 import UsersController from './users.controller';
 import UsersService from './users.service';
