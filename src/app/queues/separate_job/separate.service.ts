@@ -4,7 +4,7 @@ import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 
 @Injectable()
-export default class SeparateTemplateService {
+export default class SeparateJobService {
   private readonly _queue: Queue;
 
   constructor(@InjectQueue('SeparateProcessor') queue: Queue) {

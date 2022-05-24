@@ -3,7 +3,7 @@ import { Global, Module } from '@nestjs/common';
 
 import { join } from 'path';
 
-import SeparateTemplateService from './separate.service';
+import SeparateJobService from './separate.service';
 
 @Global()
 @Module({
@@ -18,7 +18,7 @@ import SeparateTemplateService from './separate.service';
       ],
     }),
   ],
-  providers: [SeparateTemplateService],
-  exports: [SeparateTemplateService],
+  providers: [SeparateJobService],
+  exports: [SeparateJobService],
 })
 export default class SeparateTemplateModule {}

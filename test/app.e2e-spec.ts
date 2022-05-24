@@ -6,6 +6,7 @@ import * as request from 'supertest';
 import AppModule from '../src/app/app.module';
 
 jest.mock('../src/app/queues/separate_job/separate.module');
+jest.mock('../src/app/routes/jobs/jobs.module');
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
