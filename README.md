@@ -12,7 +12,8 @@ The repository provides examples of the main toolkit used to write a basic servi
 ### Project structure
 
 ```
-src
+test                            ─ e2e tests
+src                             ─ Source code
 │   main.ts                     ─ App entrypoint
 │
 ├───migrations                  ─ TypeORM migrations folder
@@ -51,4 +52,11 @@ src
 ├───────other modules
 │
 └───────utils                   ─ Utils.
+```
+
+### Files naming
+
+```
+{name}.{resource_type}.ts
+{name}.{resource_type}.spec.ts - For unit tests.
 ```
