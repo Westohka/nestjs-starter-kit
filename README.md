@@ -47,7 +47,7 @@ src                             ─ Source code
 │       ├───jobs                ─ Routes for jobs testing
 │       ├───users               ─ Routes for users testing
 │       ├───template            ─ Other templates routes
-│       └───other routes module
+│       └───other routes module ─ You can create module for route versionise (example v1 module)
 │
 ├───────other modules
 │
