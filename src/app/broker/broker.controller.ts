@@ -7,6 +7,12 @@ import {
   RmqContext,
 } from '@nestjs/microservices';
 
+import {
+  BrokerEvents,
+  BrokerMessages,
+  IHelloMessage,
+} from './broker.constants';
+
 @Controller()
 export default class BrokerController {
   protected close(@Ctx() context: RmqContext): void {
@@ -16,13 +22,13 @@ export default class BrokerController {
     channel.ack(originalMsg);
   }
 
-  @MessagePattern({ cmd: 'greeting' })
-  getGreetingMessage(name: string): string {
-    return `Hello ${name}`;
+  @MessagePattern(BrokerMessages.HELLO)
+  getHelloMessage(data: IHelloMessage): string {
+    return `Hello ${data.name}`;
   }
 
-  @EventPattern('book-created')
-  async handleBookCreatedEvent(
+  @EventPattern(BrokerEvents.EVENT_SIMPLE)
+  async handleEvents(
     @Payload() data: Record<string, unknown>,
     @Ctx() context: RmqContext,
   ) {

@@ -3,11 +3,19 @@ import { ClientProxy } from '@nestjs/microservices';
 
 import { firstValueFrom } from 'rxjs';
 
+import {
+  BrokerEvents,
+  BrokerMessages,
+  CLIENT_NAME,
+  IEventSimpleEvent,
+  IHelloMessage,
+} from './broker.constants';
+
 @Injectable()
 export default class BrokerService implements OnApplicationBootstrap {
   private _client: ClientProxy;
 
-  constructor(@Inject('BASIC_SERVICE') client: ClientProxy) {
+  constructor(@Inject(CLIENT_NAME) client: ClientProxy) {
     this._client = client;
   }
 
@@ -16,14 +24,20 @@ export default class BrokerService implements OnApplicationBootstrap {
   }
 
   async getHello(): Promise<string> {
-    const data = await this._client.send<string>({ cmd: 'greeting' }, 'World');
+    const message: IHelloMessage = {
+      name: 'World',
+    };
+
+    const data = await this._client.send<string>(BrokerMessages.HELLO, message);
     return firstValueFrom(data);
   }
 
   async publishEvent() {
-    this._client.emit('book-created', {
-      bookName: 'The Way Of Kings',
-      author: 'Brandon Sanderson',
-    });
+    const event: IEventSimpleEvent = {
+      firstname: 'firstname',
+      lastname: 'lastname',
+    };
+
+    this._client.emit(BrokerEvents.EVENT_SIMPLE, event);
   }
 }

@@ -3,6 +3,8 @@ import { ClientsModule } from '@nestjs/microservices';
 
 import rabbit from '../config/rabbit.config';
 
+import { CLIENT_NAME } from './broker.constants';
+
 import BrokerController from './broker.controller';
 import BrokerService from './broker.service';
 
@@ -11,7 +13,7 @@ import BrokerService from './broker.service';
   imports: [
     ClientsModule.register([
       {
-        name: 'BASIC_SERVICE',
+        name: CLIENT_NAME,
         ...rabbit,
       },
     ]),
