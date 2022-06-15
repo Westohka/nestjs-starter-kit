@@ -13,11 +13,8 @@ import {
 
 @Injectable()
 export default class BrokerService implements OnApplicationBootstrap {
+  @Inject(CLIENT_NAME)
   private _client: ClientProxy;
-
-  constructor(@Inject(CLIENT_NAME) client: ClientProxy) {
-    this._client = client;
-  }
 
   async onApplicationBootstrap() {
     await this._client.connect();

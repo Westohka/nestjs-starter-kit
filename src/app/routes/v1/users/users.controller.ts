@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Inject,
   Post,
   Request,
   UseGuards,
@@ -19,11 +20,8 @@ import UsersService from './users.service';
 @ApiTags('v1', 'users')
 @Controller('v1/users')
 export default class UsersController {
+  @Inject(UsersService)
   private readonly _service: UsersService;
-
-  constructor(service: UsersService) {
-    this._service = service;
-  }
 
   @Post()
   @ApiOperation({

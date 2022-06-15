@@ -22,14 +22,4 @@ import config from '../config/config';
     }),
   ],
 })
-export default class DatabaseModule {
-  private readonly _connection: Connection;
-
-  constructor(connection: Connection) {
-    this._connection = connection;
-  }
-
-  connection(): Connection {
-    return this._connection;
-  }
-}
+export default class DatabaseModule {}

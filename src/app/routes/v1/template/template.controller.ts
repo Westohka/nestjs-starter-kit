@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Inject } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import TemplateService from './template.service';
@@ -6,11 +6,8 @@ import TemplateService from './template.service';
 @ApiTags('v1', 'template')
 @Controller('v1/template')
 export default class TemplateController {
+  @Inject(TemplateService)
   private readonly _service: TemplateService;
-
-  constructor(service: TemplateService) {
-    this._service = service;
-  }
 
   @Get()
   @ApiOperation({

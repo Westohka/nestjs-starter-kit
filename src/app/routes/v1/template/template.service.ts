@@ -1,17 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { Connection } from 'typeorm';
+import { Inject, Injectable } from '@nestjs/common';
 
 import BrokerService from '../../../broker/broker.service';
 
 @Injectable()
 export default class TemplateService {
-  private readonly _database: Connection;
+  @Inject(BrokerService)
   private readonly _broker: BrokerService;
-
-  constructor(database: Connection, broker: BrokerService) {
-    this._database = database;
-    this._broker = broker;
-  }
 
   getHello(): string {
     return 'Hello World!';

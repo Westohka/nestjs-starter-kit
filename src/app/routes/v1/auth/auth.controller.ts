@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Inject, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import AuthService from './auth.service';
@@ -8,11 +8,8 @@ import { LoginDto } from './auth.dto';
 @ApiTags('v1', 'auth')
 @Controller('v1/auth')
 export default class AuthController {
+  @Inject(AuthService)
   private readonly _service: AuthService;
-
-  constructor(service: AuthService) {
-    this._service = service;
-  }
 
   @Post('sign_in')
   @ApiOperation({

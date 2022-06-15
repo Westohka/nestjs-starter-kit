@@ -1,7 +1,5 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-
-import { Connection } from 'typeorm';
 
 import config from '../../../config/config';
 
@@ -18,20 +16,11 @@ export enum AuthServiceErrors {
 
 @Injectable()
 export default class AuthService {
-  private readonly _database: Connection;
+  @Inject(UserRepository)
   private readonly _userRepository: UserRepository;
 
+  @Inject(JwtService)
   private readonly _jwtService: JwtService;
-
-  constructor(
-    database: Connection,
-    userRepository: UserRepository,
-    jwtService: JwtService,
-  ) {
-    this._database = database;
-    this._userRepository = userRepository;
-    this._jwtService = jwtService;
-  }
 
   private createTokens(user: User): {
     accessToken: string;

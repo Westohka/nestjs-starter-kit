@@ -1,20 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
 import TemplateJobService from '../../../queues/template_job/template.service';
 import SeparateJobService from '../../../queues/separate_job/separate.service';
 
 @Injectable()
 export default class JobsService {
+  @Inject(TemplateJobService)
   private readonly _templateQueue: TemplateJobService;
-  private readonly _separateQueue: SeparateJobService;
 
-  constructor(
-    templateQueue: TemplateJobService,
-    separateQueue: SeparateJobService,
-  ) {
-    this._templateQueue = templateQueue;
-    this._separateQueue = separateQueue;
-  }
+  @Inject(SeparateJobService)
+  private readonly _separateQueue: SeparateJobService;
 
   async queueTemplate(): Promise<void> {
     await this._templateQueue.queueTemplate();
