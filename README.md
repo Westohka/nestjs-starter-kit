@@ -205,10 +205,26 @@ if (...) {
 
 ...
 ```
-
 7. After and before comments must be a blank line
 ```
 // Comment
 
 await methodA(...args);
+```
+8. Entity properties changes and interaction with repository must be separated. Example:
+```
+const entity = repository.creat(...);
+
+entity.property = 'value';
+entity.property_2 = 'value';
+
+repository.save(entity);
+```
+Exceptions:
+If it`s only one property changed:
+```
+const entity = repository.creat(...);
+
+entity.property = 'value';
+repository.save(entity);
 ```
