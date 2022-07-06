@@ -129,3 +129,86 @@ Error:
   "message": "Wrong password"
 }
 ```
+
+### Style code
+
+All styles described in eslint config. But exists more rules, what cannot be describe in eslint:
+
+##### Blank lines
+
+1. All class method must be separated with a blank line. Example:
+
+```
+async firstMethod(): Promise<void> {
+  ...
+}
+
+async secondMethod(): Promise<void> {
+  ...
+}
+```
+2. Many lines calls and one line calls must be separated. Example:
+```
+const data = manyLinesCall({
+    firstArg,
+    secondArg,
+    ....
+});
+
+await oneLineCall(...args);
+```
+3. Variables declarations and business logic must be separated. Example:
+```
+const a = ...;
+const b = ...;
+
+await methodA(...args);
+await methodB(...args);
+```
+Exceptions:
+If it`s small method with only one declaration and only one method call:
+```
+const a = ...;
+await methodA(...args);
+```
+4. Return/break and some methods calls must be separated. Example:
+```
+await methodA(...args);
+await methodB(...args);
+
+return;
+```
+Exceptions:
+If it`s only one method call before return/break:
+```
+await methodA(...args);
+return;
+```
+5. Businesses logics must be separated. Example:
+```
+// Logic for create and save some item_1 to database
+
+await methodA(...args);
+await methodB(...args);
+
+// Logic for change data for item_2 in database
+
+await methodC(...args);
+```
+6. After and before block condition/cycles must be a blank line
+```
+...
+
+if (...) {
+
+}
+
+...
+```
+
+7. After and before comments must be a blank line
+```
+// Comment
+
+await methodA(...args);
+```
